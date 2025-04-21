@@ -1,24 +1,51 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Header from './components/Header';
+import Hero from './components/Hero';
+import ProjectSection from './components/ProjectSection';
+import ProjectDetail from './components/ProjectDetail';
+import Footer from './components/Footer';
+import { professionalProjects, personalProjects, academicProjects, aiProjects } from './data/projects';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="d-flex flex-column min-vh-100">
+        <Header />
+        <Routes>
+          <Route path="/" element={
+            <>
+              <Hero />
+              <main id="projects">
+                <ProjectSection 
+                  title="Professional Projects" 
+                  projects={professionalProjects} 
+                  sectionId="professional"
+                />
+                <ProjectSection 
+                  title="Personal Projects" 
+                  projects={personalProjects} 
+                  sectionId="personal"
+                />
+                <ProjectSection 
+                  title="Academic Projects" 
+                  projects={academicProjects} 
+                  sectionId="academic"
+                />
+                <ProjectSection 
+                  title="AI Projects" 
+                  projects={aiProjects} 
+                  sectionId="ai"
+                />
+              </main>
+            </>
+          } />
+          <Route path="/project/:id" element={<ProjectDetail />} />
+        </Routes>
+        <Footer />
+      </div>
+    </Router>
   );
 }
 
